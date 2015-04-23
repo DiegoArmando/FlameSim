@@ -23,6 +23,13 @@ public:
     fuel = 5000;
     heat = 5;
   }
+   FluidParticle(glm::vec3 sentOrign)
+  {
+
+    origin = sentOrign;
+    fuel = 5000;
+    heat = 5;
+  }
 
   FluidParticle()
   {
@@ -32,8 +39,8 @@ public:
 
   void update(glm::vec3 netForce)
   {
-    velocity += netForce;
-    position += velocity;
+  //  velocity += netForce;
+  //  position += velocity;
 
     fuel -= heat;
     if(fuel <= 0)
@@ -56,6 +63,7 @@ private:
   void reset()
   {
     position = origin;
+    fuel = 5000;
   }
 };
 

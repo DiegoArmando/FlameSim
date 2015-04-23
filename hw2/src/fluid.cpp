@@ -175,7 +175,7 @@ void Fluid::GenerateParticles(const std::string &shape, const std::string &place
                                 args->mtrand()*nz*dz);
       if (inShape(pos,shape)) {      
         Cell *cell = getCell(int(pos.x/dx),int(pos.y/dy),int(pos.z/dz));
-        FluidParticle *p = new FluidParticle();
+        FluidParticle *p = new FluidParticle(pos);
         p->setPosition(pos);
         cell->addParticle(p);
       }
@@ -524,6 +524,8 @@ void Fluid::MoveParticles() {
           glm::vec3 vel2 = getInterpolatedVelocity(pos2);
           glm::vec3 pos3 = pos + float(0.5*dt)*(vel+vel2);
           p->setPosition(pos3);
+          glm::vec3 zero = glm::vec3(0,0,0);
+          p->update(zero);
 #endif
         }
       }

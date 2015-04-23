@@ -20,3 +20,6 @@ hw2/src/CMakeFiles/simulation.dir/CXX.includecache
 *.internal
 *.cmake
 hw2/src/cmake_install.cmake
+hw2/src/simulation
+*.cmake
+hw2/src/Makefile
