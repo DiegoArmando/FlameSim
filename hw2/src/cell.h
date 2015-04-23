@@ -3,6 +3,7 @@
 
 #include <cassert>
 #include <vector>
+#include <time.h>
 
 // ==============================================================================
 
@@ -16,7 +17,7 @@ public:
 
   FluidParticle(glm::vec3 sentOrign, glm::vec3 initVel)
   {
-
+    srand(time(NULL));
     origin = sentOrign;
     velocity = initVel;
     initialV = initVel;
@@ -25,9 +26,9 @@ public:
   }
    FluidParticle(glm::vec3 sentOrign)
   {
-
+    srand(time(NULL));
     origin = sentOrign;
-    fuel = 5000;
+    fuel = 3000 + rand() % 1500;
     heat = 5;
   }
 
@@ -62,8 +63,9 @@ private:
   //TODO: Add noise to initial velocity, allow for random inital velocity, add noise to inital position based on origin
   void reset()
   {
+    //srand(time(NULL));
     position = origin;
-    fuel = 5000;
+    fuel = 3000 + rand() % 1500;
   }
 };
 
