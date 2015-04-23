@@ -14,12 +14,18 @@ public:
   // modifer
   void setPosition(const glm::vec3 &p) { position = p; }
 
-  void FluidParticle(glm::vec3 sentOrign, glm::vec3 initVel)
+  FluidParticle(glm::vec3 sentOrign, glm::vec3 initVel)
   {
 
     origin = sentOrign;
     velocity = initVel;
     initialV = initVel;
+    fuel = 5000;
+    heat = 5;
+  }
+
+  FluidParticle()
+  {
     fuel = 5000;
     heat = 5;
   }
@@ -39,7 +45,7 @@ private:
   // representation
   glm::vec3 position;
   glm::vec3 velocity;
-  glm::vec3 initalV;
+  glm::vec3 initialV;
 
   int heat;
   int fuel;
