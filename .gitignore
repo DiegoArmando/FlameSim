@@ -14,3 +14,9 @@ hw2/src/CMakeFiles/2.8.12.2/CMakeDetermineCompilerABI_C.bin
 hw2/src/CMakeFiles/2.8.12.2/CompilerIdCXX/CMakeCXXCompilerId.cpp
 hw2/src/CMakeFiles/TargetDirectories.txt
 hw2/src/CMakeFiles/simulation.dir/link.txt
+hw2/src/Makefile
+*.o
+hw2/src/CMakeFiles/simulation.dir/CXX.includecache
+*.internal
+*.cmake
+hw2/src/cmake_install.cmake

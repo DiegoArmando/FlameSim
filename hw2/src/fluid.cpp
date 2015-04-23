@@ -125,7 +125,19 @@ bool Fluid::inShape(glm::vec3 &pos, const std::string &shape) {
     double length = glm::length(center-pos);
     if (length < 0.8*h) return true;
     return false;
-  } else {
+
+  } 
+  else if (shape == "point") {
+    // a shallow pool of particles on the bottom
+    double h = ny*dy/16.0;
+ //   if (pos.y < .5*h) return false;
+    // and a sphere of particles above
+    glm::vec3 center = glm::vec3(nx*dx*0.5, .5*h,nz*dz*0.5);
+    double length = glm::length(center-pos);
+    if (length < 2*h) return true;
+    return false;
+  }
+  else {
     std::cout << "unknown shape: " << shape << std::endl;
     exit(0);
   }
