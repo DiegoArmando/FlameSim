@@ -7,14 +7,50 @@
 // ==============================================================================
 
 class FluidParticle {
+
 public:
   // accessor
   const glm::vec3& getPosition() const { return position; }
   // modifer
   void setPosition(const glm::vec3 &p) { position = p; }
+
+  void FluidParticle(glm::vec3 sentOrign, glm::vec3 initVel)
+  {
+
+    origin = sentOrign;
+    velocity = initVel;
+    initialV = initVel;
+    fuel = 5000;
+    heat = 5;
+  }
+
+  void update(glm::vec3 netForce)
+  {
+    velocity += netForce;
+    position += velocity;
+
+    fuel -= heat;
+    if(fuel <= 0)
+    {
+      reset();
+    }
+  }
 private:
   // representation
   glm::vec3 position;
+  glm::vec3 velocity;
+  glm::vec3 initalV;
+
+  int heat;
+  int fuel;
+
+  glm::vec3 origin;
+
+  //TODO: Add noise to initial velocity, allow for random inital velocity, add noise to inital position based on origin
+  void reset()
+  {
+    position = origin;
+  }
 };
 
 // ==============================================================================
