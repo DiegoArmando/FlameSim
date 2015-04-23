@@ -1,0 +1,45 @@
+HOMEWORK 2: CLOTH & FLUID SIMULATION
+
+NAME:  Jeremy Spitz
+
+
+TOTAL TIME SPENT:  40+ hours
+Please estimate the number of hours you spent on this assignment.
+
+
+COLLABORATORS AND OTHER RESOURCES: List the names of everyone you
+talked to about this assignment and all of the resources (books,
+online reference material, etc.) you consulted in completing this
+assignment.
+
+< insert collaborators / resources >
+
+Remember: Your implementation for this assignment must be done on your
+own, as described in "Academic Integrity for Homework" handout.
+
+
+DISCUSS STABILITY OF YOUR CLOTH SIMULATION:
+Stable for smaller timesteps, at larger timesteps velocities tend to get out of control and explode.
+
+
+DESCRIBE YOUR NEW CLOTH TEST SCENE & 
+THE COMMAND LINE TO RUN YOUR EXAMPLE: 
+./simulation -cloth ../src/Example.txt -timestep 0.001
+
+Heavier cloth with 2 points held one in middle of cloth at medium height and a edge at a higher height
+
+DISCUSS THE ACCURACY & STABILITY OF YOUR FLUID SIMULATION:
+
+Works in all 3 dimensions fluid is incompressible although it sometimes takes a few frames for pressure to reflect that. for plain random x_y it isnt too realistic as velocities dont seems to slow down for some reason and ends up causing some weird distributions of water at some points. Spiral works as one would expect it to in water minus the pressure not getting adjusted yet, Works in all 3 dimensions. Incompressible fluid is smooth as expected with no bounces.
+
+
+
+
+
+KNOWN BUGS IN YOUR CODE:
+Please be concise!
+increase timestep too much for cloth will cause crashes same with water to some extent although alot less often
+
+
+NEW FEATURES OR EXTENSIONS FOR EXTRA CREDIT:
+Include instructions for use and test cases and sample output as appropriate.
