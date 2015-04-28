@@ -5,7 +5,7 @@ flow compressible
 xy_boundary free_slip
 yz_boundary free_slip
 zx_boundary free_slip
-viscosity .3
+viscosity .25
 gravity -.2
 
 initial_particles point random

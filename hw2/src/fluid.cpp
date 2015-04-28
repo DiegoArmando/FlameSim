@@ -401,7 +401,7 @@ double Fluid::AdjustForIncompressibility() {
   // Also play around with compressible flow!
   //
   // *********************************************************************    
-  bool repeat = true;
+/*  bool repeat = true;
   while(repeat)
   //for(int fu=0; fu <6; fu++)
   {
@@ -457,7 +457,7 @@ for (int i = -1; i <= nx; i++) {
  Fluid::UpdatePressures();
 }
 
-
+*/
 
   // return the maximum divergence
   // (will iterate for specified # of iterations or until divergence is near zero)
@@ -482,7 +482,12 @@ void Fluid::UpdatePressures() {
 	  double dt = args->timestep;
 	  double beta = BETA_0/((2*dt) * (1/square(dx) + 1/square(dy) + 1/square(dz)));
 	  double dp = beta*divergence;
-	  c->setPressure(pressure + dp);
+    double pressuremax = 8.0;
+    if(pressure + dp > pressuremax)
+       c->setPressure(pressuremax);
+    else if(pressure + dp < -pressuremax)
+      c->setPressure(-pressuremax);
+	  else c->setPressure(pressure + dp);
 	} else {
 	  // zero out boundary cells (just in case)
 	  c->setPressure(0);
@@ -757,7 +762,20 @@ std::cout << "x:" << xx << "y:" << yy << "A0:" << A0 <<
   double wvelocity = A1*get_w_plus(i-1,j,k-1) + A2*get_w_plus(i-1,j-1,k-1)
    + A0*get_w_plus(i,j,k-1) + A3*get_w_plus(i,j-1,k-1) + A5*get_w_plus(i-1,j,k) + A6*get_w_plus(i-1,j-1,k)
    + A4*get_w_plus(i,j,k) + A7*get_w_plus(i,j-1,k);
-
+   double maxvelocity = 1;
+   double minvelocity = -1;
+   if(ivelocity > maxvelocity)
+    ivelocity = maxvelocity;
+     if(ivelocity < minvelocity)
+    ivelocity = minvelocity;
+   if(vvelocity > maxvelocity)
+    vvelocity = maxvelocity;
+   if(vvelocity < minvelocity)
+    vvelocity = minvelocity;
+   if(wvelocity > maxvelocity)
+    wvelocity = maxvelocity;
+ if(wvelocity < minvelocity)
+    wvelocity = minvelocity;
 
 //std::cout << "x:" << xx << "y:" << yy << "A0:" << A0 <<
   //"A1:" << A1 << "A2:" << A2 <<"A3:" << A3 << std::endl;
