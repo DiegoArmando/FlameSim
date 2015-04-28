@@ -133,8 +133,11 @@ bool Fluid::inShape(glm::vec3 &pos, const std::string &shape) {
  //   if (pos.y < .5*h) return false;
     // and a sphere of particles above
     glm::vec3 center = glm::vec3(nx*dx*0.5, .5*h,nz*dz*0.5);
+     glm::vec3 center2 = glm::vec3(nx*dx*0.75, .5*h,nz*dz*0.5);
     double length = glm::length(center-pos);
+     double length2 = glm::length(center2-pos);
     if (length < 2*h) return true;
+    if (length2 < 1.5*h) return true;
     return false;
   }
   else {
@@ -179,6 +182,7 @@ void Fluid::GenerateParticles(const std::string &shape, const std::string &place
         p->setPosition(pos);
         cell->addParticle(p);
       }
+
     }
   }
 }
@@ -530,7 +534,7 @@ void Fluid::MoveParticles() {
           glm::vec3 pos3 = pos + float(0.5*dt)*(vel+vel2);
           p->setPosition(pos3);
           glm::vec3 zero = glm::vec3(0,0,0);
-          p->update(zero);
+          p->update(zero,args->timestep);
 #endif
         }
       }

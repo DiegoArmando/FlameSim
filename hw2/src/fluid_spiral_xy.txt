@@ -9,7 +9,7 @@ viscosity .25
 gravity -.2
 
 initial_particles point random
-density 180
+density 125
 
 initial_velocity random
 
