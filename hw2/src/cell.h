@@ -46,13 +46,8 @@ public:
   //  velocity += netForce;
   //  position += velocity;
 
-    fuel -= heat*timestep*100;
-    if(fuel <4000)
-      heat = 4;
-    if(fuel < 3000)
-      heat = 3;
-    if(fuel < 2000)
-      heat = 2;
+    fuel -= (4)*timestep*100;
+    heat = fuel/10000+ .5;
     if(fuel <= 0)
     {
       reset();
@@ -64,7 +59,7 @@ private:
   glm::vec3 velocity;
   glm::vec3 initialV;
 
-  int heat;
+  float heat;
   float fuel;
 
   glm::vec3 origin;

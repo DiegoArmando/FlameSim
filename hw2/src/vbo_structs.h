@@ -15,7 +15,7 @@ struct VBOPosNormalColor {
     VBOPosNormalColor(const glm::vec3 &p, float ra) {
     x = p.x; y = p.y; z = p.z;
     nx = 1; ny = 0; nz = 0;
-    r = ra; g = 0; b = 0;
+    r = ra; g = .15; b = 0;
 
   }
   VBOPosNormalColor(const glm::vec3 &p, const glm::vec3 &n, const glm::vec3 &c) {
