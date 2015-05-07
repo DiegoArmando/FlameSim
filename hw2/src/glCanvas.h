@@ -42,6 +42,7 @@ public:
   static GLuint programID;
   static GLuint colormodeID;
   static GLuint wireframeID;
+  static GLuint textureID;
   
   // mouse position
   static int mouseX;
