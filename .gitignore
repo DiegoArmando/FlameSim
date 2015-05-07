@@ -23,3 +23,4 @@ hw2/src/cmake_install.cmake
 hw2/src/simulation
 *.cmake
 hw2/src/Makefile
+hw2/src/simulation.vertexshader

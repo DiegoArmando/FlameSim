@@ -12,11 +12,18 @@ struct VBOPosNormalColor {
     nx = 1; ny = 0; nz = 0;
     r = 0; g = 0; b = 0;
   }
+    VBOPosNormalColor(const glm::vec3 &p, float h) {
+    x = p.x; y = p.y; z = p.z;
+    nx = 1; ny = 0; nz = 0;
+    r = 0; g = 0; b = 0;
+    heat = h;
+  }
   VBOPosNormalColor(const glm::vec3 &p, const glm::vec3 &n, const glm::vec3 &c) {
     x = p.x; y = p.y; z = p.z;
     nx = n.x; ny = n.y; nz = n.z;
     r = c.x; g = c.y; b = c.z;
   }
+  float heat;
   float x, y, z;    // position
   float nx, ny, nz; // normal
   float r, g, b;    // color

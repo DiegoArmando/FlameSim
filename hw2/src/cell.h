@@ -37,7 +37,10 @@ public:
     fuel = 5000;
     heat = 5;
   }
-
+  float getHeat()
+  {
+    return heat;
+  }
   void update(glm::vec3 netForce, double timestep)
   {
   //  velocity += netForce;
