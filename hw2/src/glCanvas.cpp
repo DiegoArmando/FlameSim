@@ -4,6 +4,9 @@
 #include "argparser.h"
 #include "camera.h"
 #include <iostream>
+#include "IL/il.h"
+#include "IL/ilu.h"
+#include "IL/ilut.h"
 
 // ========================================================
 // static variables of GLCanvas class
@@ -37,6 +40,10 @@ GLuint GLCanvas::MatrixID;
 GLuint GLCanvas::programID;
 GLuint GLCanvas::wireframeID;
 GLuint GLCanvas::colormodeID;
+
+ILboolean success;
+unsigned int imageID;
+unsigned int textureID;
 
 // ========================================================
 // Initialize all appropriate OpenGL variables, set
@@ -149,6 +156,32 @@ void GLCanvas::initializeVBOs(){
   glGenVertexArrays(1, &simulation_VAO);
   glBindVertexArray(simulation_VAO);
 
+    // init DevIL. This needs to be done only once per application
+  ilInit();
+  // generate an image name
+  ilGenImages(1, &imageID); 
+  // bind it
+  ilBindImage(imageID); 
+  // match image origin to OpenGL’s
+  ilEnable(IL_ORIGIN_SET);
+  ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
+  // load  the image
+  std::string fileName = "spectrum.png";
+  ilLoadImage((ILstring)fileName.c_str());
+
+  /* Convert image to RGBA with unsigned byte data type */
+  ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+
+  
+
+  /* Create and load textures to OpenGL */
+  glGenTextures(1, &textureID); /* Texture name generation */
+  glBindTexture(GL_TEXTURE_2D, textureID); 
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 
+                  ilGetInteger(IL_IMAGE_WIDTH),
+                  ilGetInteger(IL_IMAGE_HEIGHT), 
+                  0, GL_RGBA, GL_UNSIGNED_BYTE,
+                  ilGetData());
 
   GLCanvas::MatrixID = glGetUniformLocation(GLCanvas::programID, "MVP");
   GLCanvas::LightID = glGetUniformLocation(GLCanvas::programID, "LightPosition_worldspace");
@@ -156,6 +189,15 @@ void GLCanvas::initializeVBOs(){
   GLCanvas::ModelMatrixID = glGetUniformLocation(GLCanvas::programID, "M");
   GLCanvas::wireframeID = glGetUniformLocation(GLCanvas::programID, "wireframe");
   GLCanvas::colormodeID = glGetUniformLocation(GLCanvas::programID, "colormode");
+
+//THIS IS THE LINE CAUSING THE ERROR
+  GLint texUnitLoc = glGetUniformLocation(GLCanvas::programID, "spectrum");
+  GLenum error;
+  error = glGetError();
+  std::cerr << "GL ERROR: " << WhichGLError(error) << std::endl;
+  glProgramUniform1i(GLCanvas::programID, texUnitLoc , 0);
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, textureID);
 
   std::cout << "before the HandleGLError" << std::endl;
  // if (cloth) cloth->initializeVBOs();
