@@ -33,6 +33,10 @@ add_executable(${my_executable}
   marching_cubes.cpp
 )
 
+target_link_libraries(${my_executable} IL ILU ILUT)
+
+
+
 # http://glm.g-truc.net/0.9.5/updates.html
 add_definitions(-DGLM_FORCE_RADIANS)
 

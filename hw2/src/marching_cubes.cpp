@@ -1,12 +1,14 @@
 #include "glCanvas.h"
 #include "marching_cubes.h"
 #include "utils.h"
+#include <iostream>
 
 // ============================================================================
 // ============================================================================
 
 void MarchingCubes::initializeVBOs() {
   // create a pointer for the vertex & index VBOs
+  std::cout << "error here?" << std::endl;
   glGenBuffers(1, &marching_cubes_verts_VBO);
   glGenBuffers(1, &marching_cubes_tri_indices_VBO);
 }

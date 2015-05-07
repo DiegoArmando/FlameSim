@@ -8,11 +8,66 @@
 #include "boundingbox.h"
 #include "marching_cubes.h"
 #include "utils.h"
+#include "IL/il.h"
+#include "IL/ilu.h"
+#include "IL/ilut.h"
+#include <string>
+#include <iostream>
 
 // ==============================================================
 // ==============================================================
+//DevIL things, informed by this image loading tutorial:
+// http://www.lighthouse3d.com/cg-topics/code-samples/loading-an-image-and-creating-a-texture/
+ILboolean success;
+unsigned int imageID;
+unsigned int textureID;
 
 void Fluid::initializeVBOs() {
+
+
+  // init DevIL. This needs to be done only once per application
+  ilInit();
+  // generate an image name
+  ilGenImages(1, &imageID); 
+  // bind it
+  ilBindImage(imageID); 
+  // match image origin to OpenGL’s
+  ilEnable(IL_ORIGIN_SET);
+  ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
+  // load  the image
+  std::string fileName = "spectrum.png";
+  ilLoadImage((ILstring)fileName.c_str());
+
+  /* Convert image to RGBA with unsigned byte data type */
+  ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
+
+  
+
+  /* Create and load textures to OpenGL */
+  glGenTextures(1, &textureID); /* Texture name generation */
+  glBindTexture(GL_TEXTURE_2D, textureID); 
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 
+                  ilGetInteger(IL_IMAGE_WIDTH),
+                  ilGetInteger(IL_IMAGE_HEIGHT), 
+                  0, GL_RGBA, GL_UNSIGNED_BYTE,
+                  ilGetData());
+
+
+
+  GLint id;
+  glGetIntegerv(GL_CURRENT_PROGRAM, &id);
+
+  //THIS IS THE LINE CAUSING THE ERROR
+  GLint texUnitLoc = glGetUniformLocation(id, "spectrum");
+  GLenum error;
+  error = glGetError();
+  std::cerr << "GL ERROR: " << WhichGLError(error) << std::endl;
+  glProgramUniform1i(id, texUnitLoc , 0);
+  glActiveTexture(GL_TEXTURE0);
+  glBindTexture(GL_TEXTURE_2D, textureID);
+
+
+
   glGenBuffers(1, &fluid_particles_VBO);
   glGenBuffers(1, &fluid_velocity_verts_VBO);
   glGenBuffers(1, &fluid_velocity_tri_indices_VBO);
@@ -20,6 +75,7 @@ void Fluid::initializeVBOs() {
   glGenBuffers(1, &fluid_facevelocity_tri_indices_VBO);
   glGenBuffers(1, &fluid_pressure_vis_VBO);
   glGenBuffers(1, &fluid_cell_type_vis_VBO);
+
   marchingCubes->initializeVBOs();
 }
 

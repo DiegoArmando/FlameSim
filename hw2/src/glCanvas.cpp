@@ -3,6 +3,7 @@
 #include "fluid.h"
 #include "argparser.h"
 #include "camera.h"
+#include <iostream>
 
 // ========================================================
 // static variables of GLCanvas class
@@ -156,10 +157,12 @@ void GLCanvas::initializeVBOs(){
   GLCanvas::wireframeID = glGetUniformLocation(GLCanvas::programID, "wireframe");
   GLCanvas::colormodeID = glGetUniformLocation(GLCanvas::programID, "colormode");
 
-
+  std::cout << "before the HandleGLError" << std::endl;
  // if (cloth) cloth->initializeVBOs();
+  HandleGLError("Before the fluid initializeVBOs");
   if (fluid) fluid->initializeVBOs();
   HandleGLError("leaving initilizeVBOs()");
+  std::cout << "after the HandleGLError" << std::endl;
 }
 
 void GLCanvas::setupVBOs(){

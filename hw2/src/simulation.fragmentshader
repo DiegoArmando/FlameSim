@@ -4,6 +4,7 @@
 in vec3 Position_worldspace;
 in vec3 Normal_cameraspace;
 in vec3 EyeDirection_cameraspace;
+//in int heat;
 //in vec3 LightDirection_cameraspace;
 
 in vec3 mycolor;
@@ -16,6 +17,7 @@ uniform mat4 MV;
 uniform vec3 LightPosition_worldspace;
 uniform int wireframe;
 uniform int colormode;
+uniform sampler2D spectrum;
 
 void main(){
 
@@ -23,6 +25,9 @@ void main(){
 	// You probably want to put them as uniforms
 	vec3 LightColor = vec3(1,1,1);
 	float LightPower = 40.0f;
+	vec2 coord = vec2(0, 0);
+	vec4 fetchColor;
+	fetchColor = texture(spectrum, coord);
 	
 	// Normal of the computed fragment, in camera space
 	vec3 n = normalize( Normal_cameraspace );
@@ -36,7 +41,10 @@ void main(){
                ( mycolor.x > 0.1 &&
                  mycolor.y > 0.1 &&
                  mycolor.z > 0.1) ) {
-            MaterialDiffuseColor = 0.6 * vec3(1,1,1);
+            //MaterialDiffuseColor = 0.6 * vec3(1,1,1);
+
+            
+            MaterialDiffuseColor = vec3(fetchColor[0], fetchColor[1], fetchColor[2]);
           } else {
             MaterialDiffuseColor = mycolor;
             if (mycolor.x < 0.1 &&
@@ -82,12 +90,14 @@ void main(){
 	//  - Looking elsewhere -> < 1
 	float cosAlpha = clamp( dot( E,R ), 0,1 );
 	
-	color = 
-		// Ambient : simulates indirect lighting
-		MaterialAmbientColor +
-		// Diffuse : "color" of the object
-		MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) +
-		// Specular : reflective highlight, like a mirror
-		MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
+	color = vec3(fetchColor[0], fetchColor[1], fetchColor[2]);
+
+	//color = 
+	//	// Ambient : simulates indirect lighting
+	//	MaterialAmbientColor +
+	//	// Diffuse : "color" of the object
+	//	MaterialDiffuseColor * LightColor * LightPower * cosTheta / (distance*distance) +
+	//	// Specular : reflective highlight, like a mirror
+	//	MaterialSpecularColor * LightColor * LightPower * pow(cosAlpha,5) / (distance*distance);
 
 }
