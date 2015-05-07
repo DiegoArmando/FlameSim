@@ -40,7 +40,6 @@ GLuint GLCanvas::MatrixID;
 GLuint GLCanvas::programID;
 GLuint GLCanvas::wireframeID;
 GLuint GLCanvas::colormodeID;
-GLuint GLCanvas::textureID;
 
 ILboolean success;
 unsigned int imageID;
@@ -173,22 +172,32 @@ void GLCanvas::initializeVBOs(){
   /* Convert image to RGBA with unsigned byte data type */
   ilConvertImage(IL_RGBA, IL_UNSIGNED_BYTE);
 
+  
+
+  /* Create and load textures to OpenGL */
+  glGenTextures(1, &textureID); /* Texture name generation */
+  glBindTexture(GL_TEXTURE_2D, textureID); 
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 
+                  ilGetInteger(IL_IMAGE_WIDTH),
+                  ilGetInteger(IL_IMAGE_HEIGHT), 
+                  0, GL_RGBA, GL_UNSIGNED_BYTE,
+                  ilGetData());
+
   GLCanvas::MatrixID = glGetUniformLocation(GLCanvas::programID, "MVP");
   GLCanvas::LightID = glGetUniformLocation(GLCanvas::programID, "LightPosition_worldspace");
   GLCanvas::ViewMatrixID = glGetUniformLocation(GLCanvas::programID, "V");
   GLCanvas::ModelMatrixID = glGetUniformLocation(GLCanvas::programID, "M");
   GLCanvas::wireframeID = glGetUniformLocation(GLCanvas::programID, "wireframe");
   GLCanvas::colormodeID = glGetUniformLocation(GLCanvas::programID, "colormode");
-  GLCanvas::textureID = glGetUniformLocation(GLCanvas::programID, "spectrum");
 
-  /* Create and load textures to OpenGL */
-  glGenTextures(1, &textureID); /* Texture name generation */
+//THIS IS THE LINE CAUSING THE ERROR
+  GLint texUnitLoc = glGetUniformLocation(GLCanvas::programID, "spectrum");
+  GLenum error;
+  error = glGetError();
+  std::cerr << "GL ERROR: " << WhichGLError(error) << std::endl;
+  glProgramUniform1i(GLCanvas::programID, texUnitLoc , 0);
+  glActiveTexture(GL_TEXTURE0);
   glBindTexture(GL_TEXTURE_2D, textureID);
-  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 
-                  ilGetInteger(IL_IMAGE_WIDTH),
-                  ilGetInteger(IL_IMAGE_HEIGHT), 
-                  0, GL_RGBA, GL_UNSIGNED_BYTE,
-                  ilGetData());
 
   std::cout << "before the HandleGLError" << std::endl;
  // if (cloth) cloth->initializeVBOs();
@@ -248,14 +257,6 @@ void GLCanvas::drawVBOs(const glm::mat4 &ProjectionMatrix,const glm::mat4 &ViewM
 
   glUniform1i(GLCanvas::colormodeID, 0);
   HandleGLError("mid8 GlCanvas::drawVBOs()");
-
-  glProgramUniform1i(GLCanvas::programID, GLCanvas::textureID, textureID);
-  glActiveTexture(GL_TEXTURE0);
-  glBindTexture(GL_TEXTURE_2D, textureID);
-
-  glUniform1i(GLCanvas::textureID, textureID);
-  //glUniformli(GlCanvas::textureID, "spectrum")
-
 
   //if (cloth) cloth->drawVBOs();
   if (fluid) fluid->drawVBOs();
