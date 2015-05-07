@@ -381,8 +381,8 @@ void Fluid::CopyVelocities() {
 	    fabs(c->get_v_plus()) > 0.5*dy/dt ||
 	    fabs(c->get_w_plus()) > 0.5*dz/dt) {
 	  // velocity has exceeded reasonable threshhold
-	  std::cout << "velocity has exceeded reasonable threshhold, stopping animation" << std::endl;
-	  args->animate=false;
+	 // std::cout << "velocity has exceeded reasonable threshhold, stopping animation" << std::endl;
+	 // args->animate=false;
 	}
       }
     }

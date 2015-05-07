@@ -29,6 +29,7 @@ public:
     srand(time(NULL));
     origin = sentOrign;
     fuel = 3000 + rand() % 2000;
+    initfuel = fuel; 
     heat = 5;
   }
 
@@ -45,11 +46,16 @@ public:
   {
   //  velocity += netForce;
   //  position += velocity;
-
+    //if(fuel >= 500)
     fuel -= (4)*timestep*100;
-    heat = fuel/10000+ .5;
+    //else
+      //fuel -= timestep*100;
+    heat = fuel/initfuel - .1;
+    if (heat < 0.05)
+    heat = 0.05;
     if(fuel <= 0)
     {
+      heat = .9;
       reset();
     }
   }
@@ -61,6 +67,7 @@ private:
 
   float heat;
   float fuel;
+  float initfuel;
 
   glm::vec3 origin;
 
