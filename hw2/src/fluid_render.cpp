@@ -61,7 +61,7 @@ void Fluid::setupVBOs() {
 	for (unsigned int iter = 0; iter < particles.size(); iter++) {
 	  FluidParticle *p = particles[iter];
 	  glm::vec3 v = p->getPosition();
-          fluid_particles.push_back(VBOPosNormalColor(v));
+          fluid_particles.push_back(VBOPosNormalColor(v,p->getHeat()));
 	}
       }
     }

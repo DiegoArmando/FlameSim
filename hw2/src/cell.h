@@ -37,13 +37,17 @@ public:
     fuel = 5000;
     heat = 5;
   }
-
+  float getHeat()
+  {
+    return heat;
+  }
   void update(glm::vec3 netForce, double timestep)
   {
   //  velocity += netForce;
   //  position += velocity;
 
-    fuel -= heat*timestep*100;
+    fuel -= (4)*timestep*100;
+    heat = fuel/10000+ .5;
     if(fuel <= 0)
     {
       reset();
@@ -55,7 +59,7 @@ private:
   glm::vec3 velocity;
   glm::vec3 initialV;
 
-  int heat;
+  float heat;
   float fuel;
 
   glm::vec3 origin;
