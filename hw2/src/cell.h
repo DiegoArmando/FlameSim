@@ -47,6 +47,12 @@ public:
   //  position += velocity;
 
     fuel -= heat*timestep*100;
+    if(fuel <4000)
+      heat = 4;
+    if(fuel < 3000)
+      heat = 3;
+    if(fuel < 2000)
+      heat = 2;
     if(fuel <= 0)
     {
       reset();

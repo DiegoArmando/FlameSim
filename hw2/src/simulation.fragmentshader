@@ -90,8 +90,8 @@ void main(){
 	//  - Looking elsewhere -> < 1
 	float cosAlpha = clamp( dot( E,R ), 0,1 );
 	
-	color = vec3(fetchColor[0], fetchColor[1], fetchColor[2]);
-
+//	color = vec3(fetchColor[0], fetchColor[1], fetchColor[2]);
+	color = mycolor;
 	//color = 
 	//	// Ambient : simulates indirect lighting
 	//	MaterialAmbientColor +
