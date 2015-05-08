@@ -102,7 +102,7 @@ public:
     animate = false;
 
     particles = true;
-    velocity = true;
+    velocity = false;
     force = true;
 
     face_velocity = 0;
@@ -112,7 +112,7 @@ public:
     isosurface = 0.7;
 
     wireframe = false;
-    bounding_box = true;
+    bounding_box = false;
     cubes = false;
     pressure = false;
 
