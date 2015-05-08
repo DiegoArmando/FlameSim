@@ -377,9 +377,13 @@ void Fluid::CopyVelocities() {
 	EmptyVelocities(i,j,k);
 
 	c->copyVelocity();
-	if (fabs(c->get_u_plus()) > 0.5*dx/dt ||
-	    fabs(c->get_v_plus()) > 0.5*dy/dt ||
-	    fabs(c->get_w_plus()) > 0.5*dz/dt) {
+	if (fabs(c->get_u_plus()) > 0.7*dx/dt ||
+	    fabs(c->get_v_plus()) > 0.7*dy/dt ||
+	    fabs(c->get_w_plus()) > 0.7*dz/dt) {
+
+      c->set_u_plus(0.7*dx/dt);
+  c->set_v_plus(0.7*dy/dt);
+  c->set_w_plus(0.7*dz/dt);
 	  // velocity has exceeded reasonable threshhold
 	 // std::cout << "velocity has exceeded reasonable threshhold, stopping animation" << std::endl;
 	 // args->animate=false;

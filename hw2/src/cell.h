@@ -47,15 +47,18 @@ public:
   //  velocity += netForce;
   //  position += velocity;
     //if(fuel >= 500)
+    if(heat > .015)
     fuel -= (4)*timestep*100;
+  else
+    fuel -= (9)*timestep*10;
     //else
       //fuel -= timestep*100;
     heat = fuel/initfuel - .1;
     if (heat < 0.05)
-    heat = 0.05;
+    heat = 0.015;
     if(fuel <= 0)
     {
-      heat = .85;
+     // heat = .85;
       reset();
     }
   }
@@ -79,6 +82,7 @@ private:
     position = origin;
     fuel = 3000 + rand() % 2500;
      initfuel = fuel; 
+     heat = fuel/initfuel - .1;
   }
 };
 
