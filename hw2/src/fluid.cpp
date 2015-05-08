@@ -127,7 +127,20 @@ bool Fluid::inShape(glm::vec3 &pos, const std::string &shape) {
     return false;
 
   } 
-  else if (shape == "point") {
+  else if (shape == "1fire") {
+    // a shallow pool of particles on the bottom
+    double h = ny*dy/16.0;
+ //   if (pos.y < .5*h) return false;
+    // and a sphere of particles above
+    glm::vec3 center = glm::vec3(nx*dx*0.5, .5*h,nz*dz*0.5);
+     glm::vec3 center2 = glm::vec3(nx*dx*0.75, .5*h,nz*dz*0.5);
+    double length = glm::length(center-pos);
+     double length2 = glm::length(center2-pos);
+    if (length < 2*h) return true;
+    //if (length2 < 1.5*h) return true;
+    return false;
+  }
+  else if (shape == "2fire") {
     // a shallow pool of particles on the bottom
     double h = ny*dy/16.0;
  //   if (pos.y < .5*h) return false;
@@ -138,6 +151,57 @@ bool Fluid::inShape(glm::vec3 &pos, const std::string &shape) {
      double length2 = glm::length(center2-pos);
     if (length < 2*h) return true;
     if (length2 < 1.5*h) return true;
+    return false;
+  }
+  else if (shape == "3fire") {
+    // a shallow pool of particles on the bottom
+    double h = ny*dy/16.0;
+ //   if (pos.y < .5*h) return false;
+    // and a sphere of particles above
+    glm::vec3 center = glm::vec3(nx*dx*0.5, .5*h,nz*dz*0.5);
+     glm::vec3 center2 = glm::vec3(nx*dx*0.75, .5*h,nz*dz*0.5);
+     glm::vec3 center3 = glm::vec3(nx*dx*0.6, .5*h,nz*dz*0.75);
+    double length = glm::length(center-pos);
+     double length2 = glm::length(center2-pos);
+     double length3 = glm::length(center3-pos);
+    if (length < 2*h) return true;
+    if (length2 < 1.5*h) return true;
+    if(length3 < 1.5*h) return true;
+    return false;
+  }
+    else if (shape == "4fire") {
+    // a shallow pool of particles on the bottom
+    double h = ny*dy/16.0;
+ //   if (pos.y < .5*h) return false;
+    // and a sphere of particles above
+    glm::vec3 center = glm::vec3(nx*dx*0.5, .5*h,nz*dz*0.5);
+     glm::vec3 center2 = glm::vec3(nx*dx*0.8, .5*h,nz*dz*0.5);
+     glm::vec3 center3 = glm::vec3(nx*dx*0.65, .5*h,nz*dz*0.75);
+         glm::vec3 center4 = glm::vec3(nx*dx*0.35, .5*h,nz*dz*0.25);
+    double length = glm::length(center-pos);
+     double length2 = glm::length(center2-pos);
+     double length3 = glm::length(center3-pos);
+      double length4 = glm::length(center4-pos);
+    if (length < 2*h) return true;
+    if (length2 < 1.5*h) return true;
+    if(length3 < 1.5*h) return true;
+    if(length4 < 1.5*h) return true;
+    return false;
+  }
+  else if (shape == "3firespace") {
+    // a shallow pool of particles on the bottom
+    double h = ny*dy/16.0;
+ //   if (pos.y < .5*h) return false;
+    // and a sphere of particles above
+    glm::vec3 center = glm::vec3(nx*dx*0.2, .5*h,nz*dz*0.5);
+     glm::vec3 center2 = glm::vec3(nx*dx*0.5, .5*h,nz*dz*0.6);
+     glm::vec3 center3 = glm::vec3(nx*dx*0.8, .5*h,nz*dz*0.75);
+    double length = glm::length(center-pos);
+     double length2 = glm::length(center2-pos);
+     double length3 = glm::length(center3-pos);
+    if (length < 1.5*h) return true;
+    if (length2 < 1.5*h) return true;
+    if(length3 < 1.5*h) return true;
     return false;
   }
   else {
