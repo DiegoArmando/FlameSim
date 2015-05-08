@@ -50,20 +50,41 @@ public:
     DefaultValues();
 
     for (int i = 1; i < argc; i++) {
-      if (argv[i] == std::string("-cloth")) {
-        i++; assert (i < argc); 
+      if (argv[i] == std::string("-cloth"))
+      {
+        i++;
+        assert (i < argc); 
         separatePathAndFile(argv[i],path,cloth_file);
-      } else if (argv[i] == std::string("-fluid")) {
-	i++; assert (i < argc); 	
+      }
+      else if (argv[i] == std::string("-fluid"))
+      {
+        i++;
+        assert (i < argc); 	
         separatePathAndFile(argv[i],path,fluid_file);
-      } else if (argv[i] == std::string("-size")) {
-        i++; assert (i < argc); 
-	width = height = atoi(argv[i]);
-      } else if (argv[i] == std::string("-timestep")) {
-	i++; assert (i < argc); 
-	timestep = atof(argv[i]);
+      }
+      else if (argv[i] == std::string("-size"))
+      {
+        i++;
+        assert (i < argc); 
+	      width = height = atoi(argv[i]);
+      }
+      else if (argv[i] == std::string("-timestep"))
+      {
+	      i++;
+        assert (i < argc); 
+	      timestep = atof(argv[i]);
         assert (timestep > 0);
-      } else {
+      }
+      else if (argv[i] == std::string("-fantasy"))
+      {
+        //i++;
+        //assert (i < argc);  
+        //Do something here?
+        fantasy = true;
+        assert(fantasy);
+      }
+      else
+      {
 	printf ("whoops error with command line argument %d: '%s'\n",i,argv[i]);
 	assert(0);
       }
@@ -97,6 +118,8 @@ public:
 
     gravity = glm::vec3(0,-9.8,0);
 
+    fantasy = false;
+
     // uncomment for deterministic randomness
     // mtrand = MTRand(37);
     
@@ -112,6 +135,8 @@ public:
   std::string path;
   int width;
   int height;
+
+  bool fantasy;
 
   // animation control
   double timestep;

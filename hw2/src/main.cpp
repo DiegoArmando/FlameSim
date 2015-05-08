@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
   ArgParser args(argc, argv);
   GLCanvas::initialize(&args); 
 
-  glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+  glClearColor(0.2f, 0.1f, 0.1f, 0.0f);
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LESS); 
   glDisable(GL_CULL_FACE);

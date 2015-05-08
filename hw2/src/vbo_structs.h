@@ -12,10 +12,10 @@ struct VBOPosNormalColor {
     nx = 1; ny = 0; nz = 0;
     r = 100; g = 100; b = 50;
   }
-    VBOPosNormalColor(const glm::vec3 &p, float ra) {
+    VBOPosNormalColor(const glm::vec3 &p, float ra, float rb) {
     x = p.x; y = p.y; z = p.z;
     nx = 1; ny = 0; nz = 0;
-    r = ra; g = .15; b = 0;
+    r = ra; g = rb; b = 0;
 
   }
   VBOPosNormalColor(const glm::vec3 &p, const glm::vec3 &n, const glm::vec3 &c) {

@@ -22,21 +22,21 @@ public:
     velocity = initVel;
     initialV = initVel;
     fuel = 5000;
-    heat = 5;
+    heat = .85;
   }
    FluidParticle(glm::vec3 sentOrign)
   {
     srand(time(NULL));
     origin = sentOrign;
-    fuel = 3000 + rand() % 2000;
+    fuel = 3500 + rand() % 2000;
     initfuel = fuel; 
-    heat = 5;
+    heat = .85;
   }
 
   FluidParticle()
   {
     fuel = 5000;
-    heat = 5;
+    heat = .85;
   }
   float getHeat()
   {
@@ -55,7 +55,7 @@ public:
     heat = 0.05;
     if(fuel <= 0)
     {
-      heat = .9;
+      heat = .85;
       reset();
     }
   }
@@ -74,9 +74,11 @@ private:
   //TODO: Add noise to initial velocity, allow for random inital velocity, add noise to inital position based on origin
   void reset()
   {
+
     //srand(time(NULL));
     position = origin;
-    fuel = 3000 + rand() % 1500;
+    fuel = 3000 + rand() % 2500;
+     initfuel = fuel; 
   }
 };
 
